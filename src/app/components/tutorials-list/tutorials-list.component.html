@@ -1,0 +1,40 @@
+<div class="list row">
+  <div class="col-md-6">
+    <h4>Users List</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Score</th>
+          <th>Winner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let tutorial of tutorials; let i = index"
+          (click)="setActiveTutorial(tutorial, i)"
+          [class.active]="i === currentIndex"
+        >
+          <td>{{ tutorial.name }}</td>
+          <td>{{ tutorial.age }}</td>
+          <td>{{ tutorial.score }}</td>
+          <td
+            [ngClass]="{
+              'text-success': tutorial.winner,
+              'text-danger': !tutorial.winner
+            }"
+          >
+            {{ tutorial.winner ? "Winner" : "Not Winner" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <app-tutorial-details
+      [viewMode]="true"
+      [currentTutorial]="currentTutorial"
+    ></app-tutorial-details>
+  </div>
+</div>
