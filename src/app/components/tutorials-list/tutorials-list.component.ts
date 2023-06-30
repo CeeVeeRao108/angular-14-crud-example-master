@@ -19,6 +19,7 @@ export class TutorialsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveTutorials();
+    this.applyFilter();
   }
 
   retrieveTutorials(): void {
@@ -38,15 +39,19 @@ export class TutorialsListComponent implements OnInit {
   applyFilter(): void {
     const scoreFilterValue = this.filterValue;
 
-    this.filteredTutorials =
-      this.tutorials?.filter((tutorial: Tutorial) => {
-        if (tutorial.score !== undefined && tutorial.age !== undefined) {
-          return (
-            Number(tutorial.score) > Number(scoreFilterValue) &&
-            Number(tutorial.age) < 21
-          );
-        }
-        return false;
-      }) || [];
+    if (scoreFilterValue) {
+      this.filteredTutorials =
+        this.tutorials?.filter((tutorial: Tutorial) => {
+          if (tutorial.score !== undefined && tutorial.age !== undefined) {
+            return (
+              Number(tutorial.score) > Number(scoreFilterValue) &&
+              Number(tutorial.age) < 21
+            );
+          }
+          return false;
+        }) || [];
+    } else {
+      this.filteredTutorials = this.tutorials;
+    }
   }
 }

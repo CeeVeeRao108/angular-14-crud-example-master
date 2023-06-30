@@ -1,28 +1,30 @@
-<div *ngIf="viewMode; else editable" class="my-4">
+<div *ngIf="viewMode; else editable" class="my-4 bg-black m-4">
   <div *ngIf="currentTutorial.id">
     <h4>{{ currentTutorial.name }}</h4>
     <div class="mb-2">
       <label><strong>Name:</strong></label> {{ currentTutorial.name }}
-    </div>
-    <div class="mb-2">
       <label><strong>Age:</strong></label>
       {{ currentTutorial.age }}
-    </div>
-    <div class="mb-2">
       <label><strong>Score:</strong></label>
       {{ currentTutorial.score }}
     </div>
+
     <div class="mb-2">
       <label><strong>Status:</strong></label>
       {{ currentTutorial.winner ? "Winner" : "Not Winner" }}
     </div>
     <div class="mb-2">
-      <p>Are you sure you want to update the details?</p>
-      <a
-        class="btn btn-warning"
-        routerLink="/tutorials/{{ currentTutorial.id }}"
-        >Yes</a
-      >
+      <ng-container *ngIf="currentTutorial.winner; else winnerBlock">
+        <h1>User Already Winner</h1>
+      </ng-container>
+      <ng-template #winnerBlock>
+        <p>Are you sure you want to update the details?</p>
+        <a
+          class="btn btn-warning"
+          [routerLink]="'/tutorials/' + currentTutorial.id"
+          >Yes</a
+        >
+      </ng-template>
     </div>
   </div>
 
