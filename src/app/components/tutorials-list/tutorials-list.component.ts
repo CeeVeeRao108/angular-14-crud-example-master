@@ -44,8 +44,14 @@ export class TutorialsListComponent implements OnInit {
 
   applyFilter(): void {
     const filterValue = this.filterValue.toLowerCase();
-    this.filteredTutorials = this.tutorials?.filter((tutorial: Tutorial) =>
-      tutorial.name?.toLowerCase().includes(filterValue)
-    );
+    this.filteredTutorials = this.tutorials?.filter((tutorial: Tutorial) => {
+      if (tutorial.age !== undefined && typeof tutorial.age === 'number') {
+        return (
+          Number(tutorial.age) < 21 &&
+          tutorial.name?.toLowerCase().includes(filterValue)
+        );
+      }
+      return false;
+    });
   }
 }
