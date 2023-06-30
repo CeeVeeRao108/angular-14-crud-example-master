@@ -9,9 +9,11 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 })
 export class TutorialsListComponent implements OnInit {
   tutorials?: Tutorial[];
+  filteredTutorials?: Tutorial[];
   currentTutorial: Tutorial = {};
   currentIndex = -1;
   title = '';
+  filterValue = '';
 
   constructor(private tutorialService: TutorialService) {}
 
@@ -38,5 +40,12 @@ export class TutorialsListComponent implements OnInit {
   setActiveTutorial(tutorial: Tutorial, index: number): void {
     this.currentTutorial = tutorial;
     this.currentIndex = index;
+  }
+
+  applyFilter(): void {
+    const filterValue = this.filterValue.toLowerCase();
+    this.filteredTutorials = this.tutorials?.filter((tutorial: Tutorial) =>
+      tutorial.name?.toLowerCase().includes(filterValue)
+    );
   }
 }

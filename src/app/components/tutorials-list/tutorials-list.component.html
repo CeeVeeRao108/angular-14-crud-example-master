@@ -1,6 +1,13 @@
 <div class="list row">
   <div class="col-md-6">
     <h4>Users List</h4>
+    <input
+      matInput
+      [(ngModel)]="filterValue"
+      (input)="applyFilter()"
+      placeholder="Filter"
+    />
+
     <table class="table">
       <thead>
         <tr>
@@ -12,7 +19,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let tutorial of tutorials; let i = index"
+          *ngFor="let tutorial of filteredTutorials; let i = index"
           (click)="setActiveTutorial(tutorial, i)"
           [class.active]="i === currentIndex"
         >
