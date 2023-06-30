@@ -41,17 +41,18 @@ export class TutorialsListComponent implements OnInit {
     this.currentTutorial = tutorial;
     this.currentIndex = index;
   }
-
   applyFilter(): void {
-    const filterValue = this.filterValue.toLowerCase();
-    this.filteredTutorials = this.tutorials?.filter((tutorial: Tutorial) => {
-      if (tutorial.age !== undefined && typeof tutorial.age === 'number') {
-        return (
-          Number(tutorial.age) < 21 &&
-          tutorial.name?.toLowerCase().includes(filterValue)
-        );
-      }
-      return false;
-    });
+    const scoreFilterValue = this.filterValue;
+
+    this.filteredTutorials =
+      this.tutorials?.filter((tutorial: Tutorial) => {
+        if (tutorial.score !== undefined && tutorial.age !== undefined) {
+          return (
+            Number(tutorial.score) > Number(scoreFilterValue) &&
+            Number(tutorial.age) < 21
+          );
+        }
+        return false;
+      }) || [];
   }
 }
