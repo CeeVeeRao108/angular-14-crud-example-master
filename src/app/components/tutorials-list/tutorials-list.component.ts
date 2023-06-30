@@ -31,12 +31,6 @@ export class TutorialsListComponent implements OnInit {
     });
   }
 
-  refreshList(): void {
-    this.retrieveTutorials();
-    this.currentTutorial = {};
-    this.currentIndex = -1;
-  }
-
   setActiveTutorial(tutorial: Tutorial, index: number): void {
     this.currentTutorial = tutorial;
     this.currentIndex = index;
